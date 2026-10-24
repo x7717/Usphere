@@ -1,0 +1,22 @@
+Usphere — unofficial port of Lithosphere for Minecraft 26.3
+============================================================
+
+"Usphere" is the distribution name of this repository. The datapack
+contained here is a compatibility port of:
+
+    Lithosphere 1.8.2 by Jayzet
+    https://modrinth.com/datapack/lithosphere
+    https://modrinth.com/user/Jayzet
+
+The original project is licensed "All Rights Reserved". No license
+from the original author is claimed or implied by this port. All
+credit, rights and ownership of the Lithosphere world-generation
+design remain with Jayzet.
+
+This repository hosts only the format migration required to run the
+pack on Minecraft 26.3 ("Wilderness Bound"), plus verification
+artifacts, and is provided for community convenience. The migration
+tooling is open for review under the repository's terms.
+
+If you are the author and object to this repository, open an issue
+and it will be taken down or restricted.

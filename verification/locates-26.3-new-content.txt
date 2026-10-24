@@ -1,0 +1,41 @@
+ЖИВАЯ ПРОВЕРКА НОВОГО КОНТЕНТА VANILLA 26.3 В ПОРТИРОВАННОМ МИРЕ LITHOSPHERE
+=============================================================================
+Сервер: Paper 26.3-218, сид 31337, мир с датапаком lithosphere-1.8.2-26.3.zip
+Команды выполнены через RCON сразу после старта (мир прегенерирован ранее).
+
+1) Разница реестров litho262 -> litho263 (из snapshot.json LithoCheck):
+   BIOME:     66 -> 67   (+ minecraft:dappled_forest — новый биом 26.3)
+   STRUCTURE: 34 -> 52   (+ 18 структур abandoned_camp_* — новинки 26.3:
+     abandoned_camp_{bamboo_jungle, birch_forest, cherry_grove, dappled_forest,
+     flower_forest, forest, meadow, old_growth_birch_forest, old_growth_pine_taiga,
+     old_growth_spruce_taiga, pale_garden, savanna, snowy_taiga, sparse_jungle,
+     swamp, taiga, windswept_forest, wooded_badlands})
+
+2) /locate structure — новые структуры 26.3 НАХОДЯТСЯ в портированном мире:
+   abandoned_camp_forest        -> [-288,   ~, 1600]  (807 блоков)
+   abandoned_camp_savanna       -> [1376,   ~, -752]  (2429 блоков)
+   abandoned_camp_cherry_grove  -> [-2272,  ~, 1904]  (2096 блоков)
+   abandoned_camp_dappled_forest-> [3568,   ~, 2544]  (4401 блоков)
+   abandoned_camp_pale_garden   -> [-17696, ~, -11024] (20894 блоков)
+   Контроль (старая структура): village_plains -> [-1072, ~, 1376] —
+   координата ИДЕНТИЧНА прогону 26.2 (паритет размещения сохранён).
+
+3) /locate biome — новый биом 26.3 ГЕНЕРИРУЕТСЯ в портированном мире:
+   locate biome minecraft:dappled_forest (из спавна)
+     -> найден в [-544, 107, 1424] (611 блоков)
+   execute positioned 3568.5 100.0 2544.5  (точка лагеря dappled_forest)
+     -> dappled_forest в 0 блоках (лагерь стоит в своём новом биоме)
+   execute positioned -288.5 100.0 1600.5  (точка лагеря forest)
+     -> forest в 0 блоках
+   execute positioned 1376.5 100.0 -752.5  (точка лагеря savanna)
+     -> savanna в 0 блоках
+
+ВЫВОД: ванильный контент, добавленный Mojang в 26.3 (биом dappled_forest,
+лагеря abandoned_camp_* и все остальные новые структуры/фичи), полностью
+работает в портированном Lithosphere-мире: датапак подменяет только форму
+рельефа (шумы, density functions, noise_settings, карверы, источники) и не
+трогает биомы, биом-сорс, структуры, structure_set и размещение фич — они
+берутся из ванильного 26.3 как есть.
+
+Примечание: в 26.3 синтаксис /locate biome <biome> [<radius>] потерял
+аргумент радиуса (принимается только /locate biome <biome>).

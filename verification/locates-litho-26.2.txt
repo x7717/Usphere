@@ -1,0 +1,23 @@
+village_plains: The nearest minecraft:village_plains is at [-1072, ~, 1376] (814 blocks away)
+village_desert: The nearest minecraft:village_desert is at [2544, ~, -2544] (4520 blocks away)
+village_savanna: The nearest minecraft:village_savanna is at [2912, ~, -192] (3538 blocks away)
+village_taiga: The nearest minecraft:village_taiga is at [-336, ~, 704] (182 blocks away)
+village_snowy: The nearest minecraft:village_snowy is at [-5776, ~, 3952] (6154 blocks away)
+pillager_outpost: The nearest minecraft:pillager_outpost is at [-432, ~, 1136] (323 blocks away)
+desert_pyramid: The nearest minecraft:desert_pyramid is at [2752, ~, -2464] (4604 blocks away)
+jungle_temple: There is no structure with type "minecraft:jungle_temple"
+swamp_hut: The nearest minecraft:swamp_hut is at [-5488, ~, 5488] (6848 blocks away)
+igloo: The nearest minecraft:igloo is at [-2192, ~, 1664] (1910 blocks away)
+woodland_mansion: There is no structure with type "minecraft:woodland_mansion"
+ocean_monument: There is no structure with type "minecraft:ocean_monument"
+shipwreck: The nearest minecraft:shipwreck is at [-624, ~, -368] (1192 blocks away)
+ocean_ruin_cold: The nearest minecraft:ocean_ruin_cold is at [-320, ~, -320] (1147 blocks away)
+ocean_ruin_warm: The nearest minecraft:ocean_ruin_warm is at [368, ~, -2080] (3017 blocks away)
+ruined_portal: The nearest minecraft:ruined_portal is at [-304, ~, 1008] (260 blocks away)
+buried_treasure: The nearest minecraft:buried_treasure is at [-231, ~, 713] (269 blocks away)
+trail_ruins: The nearest minecraft:trail_ruins is at [-288, ~, 848] (194 blocks away)
+trial_chambers: The nearest minecraft:trial_chambers is at [-512, ~, 656] (163 blocks away)
+ancient_city: The nearest minecraft:ancient_city is at [-2288, ~, 1776] (2047 blocks away)
+mineshaft: The nearest minecraft:mineshaft is at [-464, ~, 752] (65 blocks away)
+stronghold: The nearest minecraft:stronghold is at [-1008, ~, 1408] (793 blocks away)
+ancient_city: The nearest minecraft:ancient_city is at [-2288, ~, 1776] (2047 blocks away)

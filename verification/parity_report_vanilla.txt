@@ -1,0 +1,95 @@
+# LithoCheck parity report: Lithosphere 26.2 (reference) vs 26.3 (ported)
+
+reference: 26.2  |  ported: 26.3
+seed: 31337 / 31337  |  world Y: [-64..320] vs [-64..320]  |  seaLevel: 63 vs 63
+
+## 1. World properties
+- minY: -64 vs -64 — MATCH
+- maxY: 320 vs 320 — MATCH
+- logicalHeight: 384 vs 384 — MATCH
+- seed: 31337 vs 31337 — MATCH
+
+## 2. Registries
+- ATTRIBUTE: 40 vs 40 — MATCH
+- BIOME: 66 vs 67 — DIFF (+1/-0)
+    + minecraft:dappled_forest (26.3 only)
+- BLOCK: 1196 vs 1286 — COUNT DIFF
+- ENCHANTMENT: 43 vs 43 — MATCH
+- ENTITY_TYPE: 158 vs 161 — COUNT DIFF
+- FLUID: 5 vs 5 — MATCH
+- GAME_EVENT: 61 vs 61 — MATCH
+- ITEM: 1537 vs 1658 — COUNT DIFF
+- MOB_EFFECT: 40 vs 40 — MATCH
+- PARTICLE_TYPE: 125 vs 128 — COUNT DIFF
+- POTION: 46 vs 46 — MATCH
+- SOUND_EVENT: 1968 vs 1991 — COUNT DIFF
+- STRUCTURE: 34 vs 52 — DIFF (+18/-0)
+    + minecraft:abandoned_camp_bamboo_jungle (26.3 only)
+    + minecraft:abandoned_camp_birch_forest (26.3 only)
+    + minecraft:abandoned_camp_cherry_grove (26.3 only)
+    + minecraft:abandoned_camp_dappled_forest (26.3 only)
+    + minecraft:abandoned_camp_flower_forest (26.3 only)
+    + minecraft:abandoned_camp_forest (26.3 only)
+    + minecraft:abandoned_camp_meadow (26.3 only)
+    + minecraft:abandoned_camp_old_growth_birch_forest (26.3 only)
+    + minecraft:abandoned_camp_old_growth_pine_taiga (26.3 only)
+    + minecraft:abandoned_camp_old_growth_spruce_taiga (26.3 only)
+    + minecraft:abandoned_camp_pale_garden (26.3 only)
+    + minecraft:abandoned_camp_savanna (26.3 only)
+    + ... 6 more
+- STRUCTURE_TYPE: 16 vs 16 — IDENTICAL
+
+## 3. Local terrain grid (289 points, stride 24, +/-192 blocks)
+- surface height: IDENTICAL at 155/289 points (53.6%)
+- height diffs: 134 points; delta distribution: {1: 3, 2: 9, 3: 17, 4: 18, 5: 20, 6: 20, 7: 13, 8: 9, 9: 14, 10: 9, 11: 2}
+    (-24,-96): 26.2=108 26.3=119 delta=+11
+    (96,48): 26.2=122 26.3=111 delta=-11
+    (-168,-192): 26.2=153 26.3=143 delta=-10
+    (-144,0): 26.2=92 26.3=82 delta=-10
+    (-120,144): 26.2=160 26.3=150 delta=-10
+    (48,72): 26.2=153 26.3=143 delta=-10
+    (72,72): 26.2=126 26.3=136 delta=+10
+    (96,-144): 26.2=118 26.3=128 delta=+10
+    (144,-168): 26.2=115 26.3=125 delta=+10
+    (168,-168): 26.2=129 26.3=119 delta=-10
+- surface block: 99 diffs / 289
+    (-192,-192): SPRUCE_LEAVES -> SNOW_BLOCK
+    (-192,-48): SNOW_BLOCK -> SPRUCE_LEAVES
+    (-192,24): SPRUCE_LEAVES -> SNOW_BLOCK
+    (-192,120): SNOW_BLOCK -> SPRUCE_LEAVES
+    (-192,144): SNOW_BLOCK -> SPRUCE_LEAVES
+    (-168,-192): SPRUCE_LEAVES -> SNOW_BLOCK
+    (-168,-168): SNOW_BLOCK -> SPRUCE_LEAVES
+    (-168,-72): SNOW_BLOCK -> SPRUCE_LEAVES
+
+## 4. Local biome samples
+- biome identity at sampled points: 867/867 (100.0%)
+
+## 5. Far sparse grid (121 points, stride 320 blocks, +/-1600 blocks)
+- surface height: IDENTICAL at 84/121 (69.4%)
+- biomes: 360/363 (99.2%)
+- distinct biome transitions: 1; top:
+    minecraft:plains -> minecraft:dappled_forest: x3
+
+## 6. Structures (/locate from origin, radius 80 chunks)
+- MONUMENT: MATCH N/A
+- VILLAGE: MATCH ERROR:IllegalStateException
+- OUTPOST: MATCH N/A
+- SWAMP_HUT: MATCH ERROR:IllegalStateException
+- DESERT_PYRAMID: MATCH ERROR:IllegalStateException
+- JUNGLE_TEMPLE: MATCH N/A
+- IGLOO: MATCH ERROR:IllegalStateException
+- STRONGHOLD: MATCH ERROR:IllegalStateException
+- WOODLAND_MANSION: MATCH ERROR:IllegalStateException
+- SHIPWRECK: MATCH ERROR:IllegalStateException
+- OCEAN_RUIN: MATCH ERROR:IllegalStateException
+- BURIED_TREASURE: MATCH ERROR:IllegalStateException
+- RUINED_PORTAL: MATCH ERROR:IllegalStateException
+- TRAIL_RUINS: MATCH N/A
+- TRIAL_CHAMBERS: MATCH N/A
+- ANCIENT_CITY: MATCH N/A
+- MINESHAFT: MATCH ERROR:IllegalStateException
+
+## 7. Datapack lists
+
+warnings (26.3): ["datapack list failed: java.util.concurrent.ExecutionException: java.lang.IllegalArgumentException: Cannot make dev.zai.lithocheck.LithoCheck$CollectingSender@1c08bc96 a vanilla command listener"]
