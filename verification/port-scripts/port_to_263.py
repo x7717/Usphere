@@ -121,8 +121,8 @@ def df_transform(o):
             out["left"] = df_transform(o["argument1"])
             out["right"] = df_transform(o["argument2"])
         return out
-    # generic: normalize type, recurse all values
-    out["type"] = "minecraft:" + t
+    # generic: normalize type, recurse all values (keep foreign namespaces intact)
+    out["type"] = ("minecraft:" + t) if ":" not in t else t
     for k, v in o.items():
         if k == "type": continue
         out[k] = df_transform(v)

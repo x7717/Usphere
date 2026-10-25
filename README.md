@@ -1,10 +1,42 @@
 # Usphere
 
+[![worldgen-tests](https://github.com/x7717/Usphere/actions/workflows/worldgen-test.yml/badge.svg)](https://github.com/x7717/Usphere/actions/workflows/worldgen-test.yml)
+
 **An unofficial compatibility port of the [Lithosphere](https://modrinth.com/datapack/lithosphere) world-generation datapack to Minecraft 26.3 "Wilderness Bound".**
 
 Lithosphere (by **Jayzet**) replaces vanilla overworld terrain with a fully custom landscape: orogeny-built mountain ranges, karst cave systems, underground rivers, volcanic island chains, reworked river valleys and more — while staying a pure datapack with no mods required.
 
 The upstream project currently ships **1.8.2, which supports Minecraft up to 26.2 only**. This repository carries a ported build that runs on **Minecraft 26.3 (datapack format 121.0)** and was verified on live servers.
+
+
+## 🌿 What's new in v2.0 — Usphere Nature (Still Life for 26.3)
+
+Usphere is now **modular**:
+
+| Pack | File | What it does |
+|---|---|---|
+| **Usphere Core** | `lithosphere-1.8.2-26.3.zip` | terrain engine — ported Lithosphere 1.8.2 (26.2 → 26.3) |
+| **Usphere Nature** | `usphere-nature-0.3-26.3.zip` | **Still Life 0.3 ported (1.21.5-1.21.8 → 26.3)**: 179 biomes, 406 features, 452 placed features, custom climate (temperature-by-latitude!), requires Core |
+
+Install **both** zips (nature must load after core). Verified live on Paper 26.3-222, seed 31337:
+both packs load with **0 errors**, SL biomes generate (`bayou` @ 3162 blocks, spawn inside
+`cacti_savanna`), villages still locate, 24×24-chunk forceload exercise clean.
+
+The ported content: block-state/provider format migration (26.3 inline shorthands),
+`random_patch` → inlined placed-features (Mojang's own conversion rule), `seagrass` →
+`weighted_random_selector`, spawner data → biome `attributes`, music/effects split into
+`minecraft:audio/*` + `minecraft:visual/*`, `find_top_surface` bounds, x/y/z coordinate
+density functions → `gradient` (including replacing the `moredfs:z` mod dependency with a
+vanilla-only equivalent), and the full inline multi-noise biome source (2818 climate entries)
+carried through `dimension/overworld.json` + `world_preset/normal.json`.
+
+Port scripts: [`verification/port-scripts/port_sl_to_263.py`](./verification/port-scripts/port_sl_to_263.py).
+
+## 🗺️ Roadmap
+
+See [`ROADMAP.md`](./ROADMAP.md) — built from a full read of the Jayzet's Worldgen Discord
+(100+ suggestion threads, screenshots included): scale presets, rivers rework, hot springs,
+no-caves-on-beaches, real-life biome pack and more.
 
 ## Download
 
