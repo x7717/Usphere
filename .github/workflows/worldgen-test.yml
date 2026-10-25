@@ -93,6 +93,27 @@ jobs:
           Xvfb :99 -screen 0 1280x720x24 +extension GLX +extension RENDER +iglx &
           sleep 2
 
+      - name: Prepare deterministic world (Paper 26.3 quickboot)
+        run: |
+          URL=$(curl -sS "https://fill.papermc.io/v3/projects/paper/versions/26.3/builds/latest" | python3 -c "import json,sys; d=json.load(sys.stdin); dl=d.get('downloads') or {}; e=dl.get('server:default') or list(dl.values())[0]; print(e['url'])")
+          curl -sSL -o paper.jar "$URL"
+          echo "eula=true" > eula.txt
+          printf '%s\n' 'level-seed=31337' 'online-mode=false' 'view-distance=6' 'simulation-distance=5' 'level-name=world' > server.properties
+          mkdir -p world/datapacks
+          cp lithosphere-1.8.2-26.3.zip world/datapacks/usphere-1-core.zip
+          cp usphere-nature-0.5-26.3.zip world/datapacks/usphere-2-nature.zip
+          cp usphere-plus-0.1-26.3.zip world/datapacks/usphere-3-plus.zip
+          java -Xmx2G -jar paper.jar --nogui > server.log 2>&1 &
+          for i in $(seq 1 90); do
+            grep -q "Done (" server.log && break
+            grep -q "Failed to load" server.log && { tail -40 server.log; exit 1; }
+            sleep 3
+          done
+          grep -q "Done (" server.log || { echo "::error::world prep failed"; tail -40 server.log; exit 1; }
+          sleep 5
+          pkill -f paper.jar || true
+          sleep 3
+
       - name: Run real Minecraft 26.3 client (loads the world, screenshots)
         run: |
           export DISPLAY=:99
