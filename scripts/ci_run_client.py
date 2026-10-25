@@ -179,6 +179,11 @@ def main():
     # prepare gamedir & world
     gdir = os.path.join(CACHE, "gamedir")
     os.makedirs(gdir + "/saves", exist_ok=True)
+    # pre-seed options: skip the first-run accessibility onboarding dialog
+    opts = os.path.join(gdir, "options.txt")
+    if not os.path.exists(opts):
+        with open(opts, "w") as f:
+            f.write("version:5023\nonboardAccessibility:false\nskipMultiplayerWarning:true\n")
     wname = "usphtest"
     wdst = f"{gdir}/saves/{wname}"
     if a.no_copy and os.path.exists(wdst):
