@@ -12,7 +12,23 @@ told us what "the best of everything" means.
 | Modular pack split: `core` (terrain) + `nature` (biomes) | "Fuse Lithosphere/Still Life/… into one" thread — community wants compartmentalized packs |
 | `dappled_forest`, `abandoned_camp_*` and all vanilla 26.3 content preserved | verified live |
 
-## 🎯 v2.1 — top community wishes (implementation-ready)
+## ✅ Shipped in v2.1 (October 2026)
+
+| Item | Notes |
+|---|---|
+| **Real-life biome pack** — `grand_canyon`, `celtic_highlands`, `norwegian_alpine_tundra`, `redwood_coast`, `northern_hardwood_forest` | climate-carved from neighbors; all five `/locate`-verified on seed 31337 |
+| **Hot springs** | `still_life:hot_spring` feature + placement in volcanic/cold biomes |
+| **Usphere Plus `classic`** | mountains ×1.3, wider rivers, cave-free beaches (3 density-function overlays) |
+| **Usphere Plus `colossal`** | mountains ×2.2 variant for the "more and taller mountains" crowd |
+| **Offline climate sampler** (`scripts/climate_sampler.py`) | reimplements 26.3 xoroshiro→Perlin→NoiseStack + density functions in numpy; finds where rare biomes generate without brute-force `/locate` |
+| **Real-client CI** | GitHub Actions boots an actual Minecraft 26.3 client (Xvfb + llvmpipe + custom GLX shim `scripts/glshim.c` + screenshot javaagent) and uploads world screenshots |
+
+⚠️ **Paper gotcha discovered while verifying:** Paper 26.3 bakes world-gen settings into
+`dimensions/…/world_gen_settings.dat` at world creation — updating `world_preset/normal.json`
+in an existing world's datapacks does NOT change its biome layout. Recreate the world
+after upgrading the pack.
+
+## 🎯 v2.2 — next community wishes (implementation-ready)
 
 1. **Scale presets** — the single most repeated request (5+ threads: "Add a config", "Scale options",
    "Bigger terrain", "more and taller mountains", "make hills/highlands more common + extreme").
