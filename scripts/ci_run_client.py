@@ -207,10 +207,12 @@ def main():
                 args[i + 1] = tpl["assetIndex"]
         except ValueError:
             pass
+    here = os.path.dirname(os.path.abspath(__file__))
+    default_agent = os.path.join(here, "agent", "shot-agent2.jar")
     cmd = [
         os.environ.get("MC_JAVA", "java"),
         "-Xmx" + os.environ.get("MC_HEAP", "2200M"),
-        "-javaagent:" + os.environ.get("SHOT_AGENT", "/home/z/my-project/scripts/agent/shot-agent2.jar") + "=" + os.environ.get("SHOT_AGENT_ARGS", "20:30:40"),
+        "-javaagent:" + os.environ.get("SHOT_AGENT", default_agent) + "=" + os.environ.get("SHOT_AGENT_ARGS", "20:30:40"),
         "-Djava.awt.headless=false",
         f"-Djava.library.path={CACHE}/libraries",
         f"-Dorg.lwjgl.opengl.Display.width=1280",
