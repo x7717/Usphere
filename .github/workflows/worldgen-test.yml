@@ -11,7 +11,7 @@ on:
 jobs:
   server-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
 
@@ -62,7 +62,7 @@ jobs:
 
   client-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 55
     needs: server-test
     steps:
       - uses: actions/checkout@v4

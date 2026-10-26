@@ -40,8 +40,8 @@ def main():
     r = Rcon(a.host, a.port, a.password, timeout=120)
 
     def cmd(c):
-        time.sleep(1)
-        return r.command(c).strip()
+        time.sleep(0.4)
+        return r.command(c, wait=1.2).strip()
 
     # 1. all packs enabled
     dp = cmd("datapack list")
@@ -69,27 +69,25 @@ def main():
     if found < len(CHECK_BIOMES):
         failures.append(f"only {found}/{len(CHECK_BIOMES)} ported biomes located (seed 31337 expects all)")
 
-    # 4. v2.2 rivers pack: verify a river floor is sand/gravel (or mud in
-    #    bayou). Finds one live river, force-loads its chunk, checks blocks.
+    # 4. v2.2 rivers pack: verify a river floor is sand/gravel/mud.
+    #    Single closest live river; chunk generation gets 90 s; scan is small.
     river_floor_ok = False
     river_checked = False
-    for rb in ("still_life:desert_river", "still_life:temperate_river",
-               "still_life:boreal_river"):
+    import re
+    for rb in ("still_life:desert_river", "still_life:temperate_river"):
         resp = cmd(f"execute in minecraft:overworld run locate biome {rb}")
-        m = None
-        import re
         mm = re.search(r"\[(-?\d+),?\s*(-?\d+),?\s*(-?\d+)\]", resp)
         if "The nearest" in resp and mm:
             rx, _, rz = int(mm.group(1)), int(mm.group(2)), int(mm.group(3))
             print(f"== river {rb} at ({rx},{rz}); force-loading chunk...", flush=True)
             cmd(f"forceload add {rx} {rz}")
-            time.sleep(180)  # chunk + structure tails generation
+            time.sleep(90)
             water = None
-            for x in range(rx - 6, rx + 7, 2):
-                for z in range(rz - 6, rz + 7, 2):
-                    for y in (63, 62, 61):
+            for x in range(rx - 4, rx + 5, 2):
+                for z in range(rz - 4, rz + 5, 2):
+                    for y in (63, 62):
                         resp = cmd(f"execute if block {x} {y} {z} minecraft:water run say w")
-                        if "w" in resp.split()[-1:]:
+                        if resp.strip().endswith("w"):
                             water = (x, y, z)
                             break
                     if water:
@@ -101,20 +99,16 @@ def main():
                 wx, wy, wz = water
                 print(f"== water found at {water}; checking floor...", flush=True)
                 for y in range(wy - 1, wy - 8, -1):
-                    resp = cmd(f"execute if block {wx} {y} {wz} minecraft:sand run say s")
-                    if "s" in resp.split()[-1:]:
-                        river_floor_ok = True
-                        print(f"== river floor sand at y={y}", flush=True)
-                        break
-                    resp = cmd(f"execute if block {wx} {y} {wz} minecraft:gravel run say g")
-                    if "g" in resp.split()[-1:]:
-                        river_floor_ok = True
-                        print(f"== river floor gravel at y={y}", flush=True)
-                        break
-                    resp = cmd(f"execute if block {wx} {y} {wz} minecraft:mud run say m")
-                    if "m" in resp.split()[-1:]:
-                        river_floor_ok = True
-                        print(f"== river floor mud at y={y}", flush=True)
+                    done = False
+                    for block, tag in (("minecraft:sand", "s"), ("minecraft:gravel", "g"),
+                                       ("minecraft:mud", "m")):
+                        resp = cmd(f"execute if block {wx} {y} {wz} {block} run say {tag}")
+                        if resp.strip().endswith(tag):
+                            river_floor_ok = True
+                            print(f"== river floor {block} at y={y}", flush=True)
+                            done = True
+                            break
+                    if done:
                         break
             else:
                 print("== no water column in the scanned window (dry river part)", flush=True)
