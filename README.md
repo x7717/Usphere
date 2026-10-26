@@ -9,6 +9,22 @@ Lithosphere (by **Jayzet**) replaces vanilla overworld terrain with a fully cust
 The upstream project currently ships **1.8.2, which supports Minecraft up to 26.2 only**. This repository carries a ported build that runs on **Minecraft 26.3 (datapack format 121.0)** and was verified on live servers.
 
 
+## 🌊 What's new in v2.2 — the community wishlist continues
+
+| Pack | File | What it does |
+|---|---|---|
+| **Usphere Nature 0.6** | `usphere-nature-0.6-26.3.zip` | Still Life port + **2 new real-life biomes**: `tepui_plateau` (Venezuelan tabletop mountains) and `finnish_taiga` (snowy Fennoscandian taiga with berry bushes, granite boulders, fallen spruce logs) + **vanilla 26.3 biomes restored** into the climate map |
+| **Usphere Rivers 0.1** | `usphere-rivers-0.1-26.3.zip` | The single most requested feature after scale presets: **guaranteed river floors** — sand bottoms in warm rivers, gravel in cold ones, mud bottoms in bayou/mangrove marshes |
+| **Usphere Plus grand 0.1** | `usphere-plus-grand-0.1-26.3.zip` | The missing middle scale preset: mountains ×1.5 (between classic ×1.3 and colossal ×2.2) |
+
+Engineering highlights (all live-verified on Paper 26.3-223, seed 31337):
+
+- **Climate-gap discovery**: Still Life's own tropical family (tropical_rainforest, monsoon_forest, humid_savanna, tropical_highlands) is **unreachable on 26.3** — its temperature windows sit above the maximum the ported climate fields produce (verified by live `/locate` MISSes and an offline climate sampler). The new biomes therefore live in verified climate gaps / tie-overtake slices of LIVE donor biomes instead of dead climate windows.
+- **Tie-overtake pattern**: copies of a live donor's climate entries inserted *before* the donor win the R-tree's stable tie-break, so a new biome grows inside the donor's area while the donor keeps the edges (`tepui_plateau` @ 2249 blocks, `finnish_taiga` @ 3696, `painted_peaks` still alive 64 blocks away).
+- **Vanilla merge**: Still Life's inline biome source silently replaced *all* vanilla surface biomes (villages lost their host biomes, `dappled_forest` vanished). v2.2 appends the true vanilla 26.3 grid (7594 entries, dumped from the engine's own `OverworldBiomeBuilder`) after the SL entries — SL keeps ties, vanilla fills the gaps, villages are back (`/locate structure minecraft:village_plains` → found), and protected community biomes are shielded from vanilla boxes by an interval-overlap filter.
+- **Feature-order cycle fix**: mixing Still Life and vanilla biomes created `Feature order cycle` crashes (`patch_sugar_cane`/`patch_pumpkin`, `fossil_*`/`monster_room`, `emeralds`/`underwater_magma`, mossy/dripstone caves...). The full pair-graph is now rebuilt per step and re-sorted so the combined pack is provably acyclic (526-node graph, topological sort passes).
+- Live locate matrix (seed 31337): all 7 community/real-life biomes + `dappled_forest` + village structures verified.
+
 ## 🌿 What's new in v2.0 — Usphere Nature (Still Life for 26.3)
 
 Usphere is now **modular**:
@@ -16,7 +32,7 @@ Usphere is now **modular**:
 | Pack | File | What it does |
 |---|---|---|
 | **Usphere Core** | `lithosphere-1.8.2-26.3.zip` | terrain engine — ported Lithosphere 1.8.2 (26.2 → 26.3) |
-| **Usphere Nature** | `usphere-nature-0.3-26.3.zip` | **Still Life 0.3 ported (1.21.5-1.21.8 → 26.3)**: 179 biomes, 406 features, 452 placed features, custom climate (temperature-by-latitude!), requires Core |
+| **Usphere Nature** | `usphere-nature-0.6-26.3.zip` | **Still Life 0.3 ported (1.21.5-1.21.8 → 26.3)**: 179 biomes, 406 features, 452 placed features, custom climate (temperature-by-latitude!), requires Core |
 
 Install **both** zips (nature must load after core). Verified live on Paper 26.3-222, seed 31337:
 both packs load with **0 errors**, SL biomes generate (`bayou` @ 3162 blocks, spawn inside

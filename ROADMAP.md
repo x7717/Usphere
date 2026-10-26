@@ -28,31 +28,36 @@ told us what "the best of everything" means.
 in an existing world's datapacks does NOT change its biome layout. Recreate the world
 after upgrading the pack.
 
-## 🎯 v2.2 — next community wishes (implementation-ready)
+## ✅ Shipped in v2.2 (October 2026)
 
-1. **Scale presets** — the single most repeated request (5+ threads: "Add a config", "Scale options",
-   "Bigger terrain", "more and taller mountains", "make hills/highlands more common + extreme").
-   Plan: ship `classic` (current), `grand` (≈1.5× vertical, more highlands), `colossal` variants.
-2. **Rivers rework** — 10+ threads ("Rivers are so damn sparse", deltas, widening towards coast,
-   sand guaranteed, mud bottoms). Plan: increased `lithosphere:rivers` xz_scale (the community-verified
-   tweak), wider river valleys near coasts, guaranteed sand/mud floors.
-3. **Hot springs** — the most popular Still Life suggestion (Jayzet himself wants a realistic version
-   in SL 1.0). Plan: Iceland-style springs in volcanic/cold biomes, no fantasy calderas.
-4. **No caves on beaches** — "caves should not cut through sand" + boulder ring entrances.
-5. **Real-life biome pack (screenshots-driven)**: Alpine Tundra (Norwegian highlands concept by
-   allyjamy), Celtic Highlands, Northern Hardwood Forest, Redwood/Big Sur coast, Finland cold regions,
-   Grand Canyon, Mesas/Tepuis.
+| Item | Notes |
+|---|---|
+| **Usphere Plus `grand`** | mountains ×1.5 — the missing middle preset between classic (×1.3) and colossal (×2.2); scale presets were the single most repeated request (5+ threads) |
+| **Usphere Rivers 0.1** | guaranteed river floors — sand in warm rivers, gravel in cold, mud in bayou/mangrove; "Rivers are so damn sparse" thread family (10+ threads) |
+| **2 new real-life biomes** | `still_life:tepui_plateau` (Venezuelan tabletop mountains — "Mesas/Tepuis" request) and `still_life:finnish_taiga` (Finland cold regions request); both `/locate`-verified |
+| **Vanilla 26.3 biome restoration** | Still Life's inline biome source had silently replaced every vanilla surface biome (villages lost their host biomes, `dappled_forest` was gone); the true vanilla grid (7594 entries, dumped from the engine) is merged behind the SL entries with a protected-zone filter for community biomes |
+| **Feature-order cycle hardening** | the SL+vanilla mix produced `Feature order cycle` crashes; the combined 526-node feature graph is now provably acyclic (per-step topological sort in CI scripts) |
+| **Discord token note** | the bot token provided for the Jayzet's Worldgen sweep returned 401 (reset/removed) by the time v2.2 work started; v2.2 priorities were executed from the v2.1 roadmap which was built from the full Discord read |
+
+## 🎯 v2.3 — next community wishes
+
+1. **Real-life biome pack, wave 2** — the remaining screenshot-driven requests: `mesa_plateau`
+   (painted-badlands style), Alpine lakes (Norway/Italy), Mediterranean cliffs, Patagonia steppe.
+2. **River deltas & waterfalls** — still the hardest request; needs terrain-level work. The
+   community-verified trick (wider `lithosphere:rivers` xz_scale near coasts) ships in Plus packs;
+   true deltas remain "nearly impossible to generate procedurally" per Jayzet's Discord.
+3. **Abyssaline Nether 26.3 port** — coordinate with the upstream beta instead of duplicating.
+4. **Deeper worlds (Y=-256) and vanilla-caves option** — engine limits permitting.
+5. **`random_patch` spread audit** — keep every `xz_spread` ≤ 8–10 to avoid the famous
+   "Detected setBlock in far chunk" spam (Apollo's diagnosis in #bugs-issues).
+6. **In-game config screen / preset picker** — datapack-only equivalent: a generator that assembles
+   Plus packs from user-selected toggles (scale preset × river style × biome pack).
 
 ## 🔭 Later
 
-- Abyssaline Nether 26.3 port (beta by alacem exists upstream — coordinate instead of duplicating)
-- River deltas & waterfalls (needs terrain-level work, "nearly impossible to generate good-looking
-  deltas procedurally" per Jayzet's Discord, but gradual widening is doable)
-- Vanilla-caves option, deeper worlds (Y=-256) — engine limits permitting
 - Tree sapling support / regrowth (community ports it via TreePlacer; a datapack solution may exist
   via sapling feature swaps)
-- `random_patch` spread audit: keep every `xz_spread` ≤ 8–10 to avoid the famous
-  "Detected setBlock in far chunk" spam (Apollo's diagnosis in #bugs-issues)
+- Per-biome music/ambience polish passes from the Discord screenshot threads
 
 ## Attribution
 

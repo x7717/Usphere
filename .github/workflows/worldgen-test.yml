@@ -31,12 +31,13 @@ jobs:
             'level-name=world' > server.properties
           mkdir -p world/datapacks
           cp lithosphere-1.8.2-26.3.zip world/datapacks/usphere-1-core.zip
-          cp usphere-nature-0.5-26.3.zip world/datapacks/usphere-2-nature.zip
+          cp usphere-nature-0.6-26.3.zip world/datapacks/usphere-2-nature.zip
           cp usphere-plus-0.1-26.3.zip world/datapacks/usphere-3-plus.zip
+          cp usphere-rivers-0.1-26.3.zip world/datapacks/usphere-4-rivers.zip
 
       - name: Start server and wait for Done
         run: |
-          java -Xmx2G -jar paper.jar --nogui > server.log 2>&1 &
+          java -Xmx3G -jar paper.jar --nogui > server.log 2>&1 &
           for i in $(seq 1 90); do
             if grep -q "Done (" server.log; then echo "SERVER UP"; break; fi
             if grep -q "Failed to load registries\|Failed to load datapacks" server.log; then
@@ -101,9 +102,10 @@ jobs:
           printf '%s\n' 'level-seed=31337' 'online-mode=false' 'view-distance=6' 'simulation-distance=5' 'level-name=world' > server.properties
           mkdir -p world/datapacks
           cp lithosphere-1.8.2-26.3.zip world/datapacks/usphere-1-core.zip
-          cp usphere-nature-0.5-26.3.zip world/datapacks/usphere-2-nature.zip
+          cp usphere-nature-0.6-26.3.zip world/datapacks/usphere-2-nature.zip
           cp usphere-plus-0.1-26.3.zip world/datapacks/usphere-3-plus.zip
-          java -Xmx2G -jar paper.jar --nogui > server.log 2>&1 &
+          cp usphere-rivers-0.1-26.3.zip world/datapacks/usphere-4-rivers.zip
+          java -Xmx3G -jar paper.jar --nogui > server.log 2>&1 &
           for i in $(seq 1 90); do
             grep -q "Done (" server.log && break
             grep -q "Failed to load" server.log && { tail -40 server.log; exit 1; }
